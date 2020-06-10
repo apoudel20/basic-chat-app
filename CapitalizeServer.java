@@ -34,18 +34,18 @@ public class CapitalizeServer {
 
 
     private static class Capitalizer implements Runnable{
-        private Socket socket;
+        private Socket clientSocket;
 
-        Capitalizer(Socket socket) {
-            this.socket =socket;
+        Capitalizer(Socket clientSocket) {
+            this.clientSocket =clientSocket;
         }
 
         @Override
         public void run() {
-            System.out.println("Connected: " + socket);
+            System.out.println("Connected: " + clientSocket);
             try{
-                Scanner in = new Scanner(socket.getInputStream());
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                Scanner in = new Scanner(clientSocket.getInputStream());
+                PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);
                 while(in.hasNextLine()){
                     out.println(in.nextLine().toUpperCase());
                 }
@@ -53,11 +53,11 @@ public class CapitalizeServer {
                 System.err.println("Error: ");
             } finally {
                 try{
-                    socket.close();
+                    clientSocket.close();
                 }catch(IOException e){
 
                 }
-                System.out.println("Closed: " + socket);
+                System.out.println("Closed: " + clientSocket);
             }
         }
 

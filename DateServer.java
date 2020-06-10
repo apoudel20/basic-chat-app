@@ -5,11 +5,11 @@ import java.net.Socket;
 import java.util.Date;
 
 /**
- * TCP server. Sends client current datetime and closes teh connection. Client has to be 
- * completely served before the server can handle another client.
+ * TCP server. Sends client current datetime and closes teh connection. Client
+ * has to be completely served before the server can handle another client.
  */
 
-public class DateServer{
+public class DateServer {
     public static void main(String[] args) throws IOException{
         try(ServerSocket listener = new ServerSocket(59090)){
             System.out.println("The Date Server is running...");
@@ -17,6 +17,13 @@ public class DateServer{
                 try (Socket socket = listener.accept()){
                     PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                     out.println(new Date().toString());
+                    // try {
+					// 	Thread.sleep(5000);
+					// } catch (InterruptedException e) {
+					// 	// TODO Auto-generated catch block
+					// 	e.printStackTrace();
+                    // };
+                    // System.out.println("Client served. Server free.");
                 }
             }
         }
